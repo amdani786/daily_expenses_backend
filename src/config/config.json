@@ -1,0 +1,8 @@
+{
+    "development": {
+        "PORT": 3000,
+        "MONGODB_URL": 
+       
+       "mongodb+srv://lazzy_lad:lazzy1234@cluster0.acmie5g.mongodb.net/Daily_expenses?retryWrites=true&w=majority"
+    }
+}
