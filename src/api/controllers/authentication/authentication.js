@@ -54,7 +54,7 @@ const registerObj = {
 
     getUsers: async (req,res) => {
         try{
-            res.send("Server Runnig!!");
+            res.send("Server Runnig!!!!");
         }
         catch{
 
