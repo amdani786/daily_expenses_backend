@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken")
 
 const userSchema = mongoose.Schema({
 
@@ -30,12 +31,30 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    // confirmPassword: {
-    //     type: String,
-    //     required: true
-    // }
+    tokens: [{
+        token: {
+            type: String,
+            required: true
+        }
+    }]
 })
 
+//generating tokens
+userSchema.methods.generateAuthToken = async function(){
+    try{
+        const token = jwt.sign({id:this._id.toString()},"dailyexpensesbackendjsonwebtoken");
+        console.log(token);
+        this.tokens = this.tokens.concat({token});
+        // this.save();
+        return token;
+    }
+    catch{
+        res.send("the error part" + error);
+        console.log("the error part" + error);
+    }
+}
+
+//converting pass into hash
 userSchema.pre("save", async function(next) {
    
     // if password is changing then only hash it

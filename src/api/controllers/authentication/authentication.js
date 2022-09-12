@@ -15,6 +15,8 @@ const registerObj = {
                     password: req.body.password
                 });
 
+                const token = await user.generateAuthToken();
+                console.log("token", token);
                 const register = await user.save();
                 res.status(201).send("Registration successful!")
                 console.log(register);
@@ -24,6 +26,7 @@ const registerObj = {
             }
         }
         catch (error){
+            console.log(error);
             res.status(400).send(error);
         }
     },
@@ -36,9 +39,10 @@ const registerObj = {
 
            const userEmail = await User.findOne({email: email});
 
-           console.log(userEmail);
+           console.log("userEmail",userEmail);
            const isMatch = await bcrypt.compare(password,userEmail.password);
-
+           const token = await userEmail.generateAuthToken();
+           console.log("token", token);
         
            if(isMatch){
             res.status(201).send("Login Successfully!");
